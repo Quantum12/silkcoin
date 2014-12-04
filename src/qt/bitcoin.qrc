@@ -51,9 +51,6 @@
         <file alias="dollar">res/icons/dollar.png</file>
         <file alias="minimize">res/icons/mini.png</file>
         <file alias="sctask">res/icons/silkcointask.png</file>
-        <file alias="gold">res/icons/Silkcoin_gold.png</file>
-        <file alias="silver">res/icons/Silkcoin_silver.png</file>
-        <file alias="bronze">res/icons/Silkcoin_bronze.png</file>
         <file alias="dash">res/icons/dash.png</file>
         <file>res/icons/balance.png</file>
         <file>res/icons/detail.png</file>
@@ -76,9 +73,6 @@
         <file alias="passi">res/icons/passi.png</file>
         <file alias="abouti">res/icons/abouti.png</file>
         <file alias="debugi">res/icons/debugi.png</file>
-        <file>res/icons/bittrex.png</file>
-        <file>res/icons/over.png</file>
-        <file>res/icons/cryptsy.png</file>
         <file alias="locks">res/icons/locks.png</file>
         <file alias="stakes">res/icons/stakes.png</file>
         <file alias="unlocks">res/icons/unlocks.png</file>
@@ -87,14 +81,7 @@
         <file>res/icons/graph.png</file>
         <file>res/icons/main.png</file>
         <file>res/icons/update.png</file>
-        <file alias="help">res/icons/help.png</file>
         <file alias="connecting">res/icons/connect_search.png</file>
-        <file alias="facebook">res/icons/facebook.png</file>
-        <file alias="reddit">res/icons/reddit.png</file>
-        <file alias="twitter">res/icons/twitter.png</file>
-        <file alias="poloniex">res/icons/poloniex.png</file>
-        <file alias="richlist">res/icons/richlist.png</file>
-        <file alias="poll">res/icons/vote.png</file>
     </qresource>
     <qresource prefix="/images">
         <file alias="about">res/images/about.png</file>
@@ -103,7 +90,6 @@
         <file alias="background">res/images/background.png</file>
     </qresource>
     <qresource prefix="/movies">
-        <file alias="camel">res/movies/camel.gif</file>
         <file alias="camel_locked">res/movies/camel_locked.gif</file>
         <file alias="camel_unlocked">res/movies/camel_unlocked.gif</file>
         <file alias="spinner">res/movies/spinner.gif</file>

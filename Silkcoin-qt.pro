@@ -226,15 +226,12 @@ HEADERS += \
         src/qt/optionsdialog.h \
         src/qt/optionsmodel.h \
         src/qt/overviewpage.h \
-        src/qt/poll.h \
-        src/qt/poolbrowser.h \
         src/qt/qcustomplot.h \
         src/qt/qtipcserver.h \
         src/qt/qvalidatedlineedit.h \
         src/qt/qvalidatedtextedit.h \
         src/qt/bitcoinunits.h \
         src/qt/qvaluecombobox.h \
-        src/qt/richlist.h \
         src/qt/rpcconsole.h \
         src/qt/sendcoinsdialog.h \
         src/qt/sendcoinsentry.h \
@@ -264,18 +261,7 @@ HEADERS += \
         src/version.h \
         src/wallet.h \
         src/walletdb.h \
-        src/xxhash/xxhash.h \
-        src/zerocoin/Accumulator.h \
-        src/zerocoin/AccumulatorProofOfKnowledge.h \
-        src/zerocoin/Coin.h \
-        src/zerocoin/CoinSpend.h \
-        src/zerocoin/Commitment.h \
-        src/zerocoin/ParamGeneration.h \
-        src/zerocoin/Params.h \
-        src/zerocoin/SerialNumberSignatureOfKnowledge.h \
-        src/zerocoin/SpendMetaData.h \
-        src/zerocoin/Zerocoin.h \
-        src/zerocoin/ZeroTest.h
+        src/xxhash/xxhash.h 
 
 SOURCES += \
         src/addrman.cpp \
@@ -323,14 +309,11 @@ SOURCES += \
         src/qt/optionsdialog.cpp \
         src/qt/optionsmodel.cpp \
         src/qt/overviewpage.cpp \
-        src/qt/poll.cpp \
-        src/qt/poolbrowser.cpp \
         src/qt/qcustomplot.cpp \
         src/qt/qtipcserver.cpp \
         src/qt/qvalidatedlineedit.cpp \
         src/qt/qvalidatedtextedit.cpp \
         src/qt/qvaluecombobox.cpp \
-        src/qt/richlist.cpp \
         src/qt/rpcconsole.cpp \
         src/qt/sendcoinsdialog.cpp \
         src/qt/sendcoinsentry.cpp \
@@ -363,17 +346,7 @@ SOURCES += \
         src/version.cpp \
         src/wallet.cpp \
         src/walletdb.cpp \
-        src/xxhash/xxhash.c \
-        src/zerocoin/Accumulator.cpp \
-        src/zerocoin/AccumulatorProofOfKnowledge.cpp \
-        src/zerocoin/Coin.cpp \
-        src/zerocoin/CoinSpend.cpp \
-        src/zerocoin/Commitment.cpp \
-        src/zerocoin/ParamGeneration.cpp \
-        src/zerocoin/Params.cpp \
-        src/zerocoin/SerialNumberSignatureOfKnowledge.cpp \
-        src/zerocoin/SpendMetaData.cpp \
-        src/zerocoin/ZeroTest.cpp
+        src/xxhash/xxhash.c 
 
 RESOURCES += \
         src/qt/bitcoin.qrc
@@ -388,9 +361,6 @@ FORMS += \
         src/qt/forms/messagepage.ui \
         src/qt/forms/optionsdialog.ui \
         src/qt/forms/overviewpage.ui \
-        src/qt/forms/poll.ui \
-        src/qt/forms/poolbrowser.ui \
-        src/qt/forms/richlist.ui \
         src/qt/forms/rpcconsole.ui \
         src/qt/forms/sendcoinsdialog.ui \
         src/qt/forms/sendcoinsentry.ui \

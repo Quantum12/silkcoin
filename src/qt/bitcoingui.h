@@ -12,9 +12,6 @@ class TransactionView;
 class OverviewPage;
 class StatisticsPage;
 class BlockBrowser;
-class PoolBrowser;
-class RichList;
-class Poll;
 class AddressBookPage;
 class MessagePage;
 class SendCoinsDialog;
@@ -77,9 +74,6 @@ class BitcoinGUI : public QMainWindow {
     OverviewPage *overviewPage;
     StatisticsPage *statisticsPage;
     BlockBrowser *blockBrowser;
-    PoolBrowser *poolBrowser;
-    RichList *richList;
-    Poll *poll;
     ChatWindow *chatWindow;
     QWidget *transactionsPage;
     AddressBookPage *addressBookPage;
@@ -96,9 +90,6 @@ class BitcoinGUI : public QMainWindow {
     QLabel *labelConnectionsIcon;
     QLabel *lblBlockStatus;
     QAction *actionConvertCurrency;
-    QAction *actionFacebook;
-    QAction *actionTwitter;
-    QAction *actionReddit;
     QLabel *labelHomepage;
     QLabel *progressBarLabel;
     QProgressBar *progressBar;
@@ -107,9 +98,6 @@ class BitcoinGUI : public QMainWindow {
     QAction *overviewAction;
     QAction *statisticsAction;
     QAction *blockAction;
-    QAction *poolAction;
-    QAction *richListAction;
-    QAction *pollAction;
     QAction *chatAction;
     QAction *historyAction;
     QAction *quitAction;
@@ -125,7 +113,6 @@ class BitcoinGUI : public QMainWindow {
     QAction *verifyMessageAction2;
     QAction *aboutSettingsAction;
     QAction *tutoStackAction;
-    QAction *actionHowToStake;
     QAction *tutoWriteAction;
     QAction *aboutAction;
     QAction *hideAction;
@@ -192,9 +179,6 @@ class BitcoinGUI : public QMainWindow {
     void gotoOverviewPage();
     void gotoStatisticsPage();
     void gotoBlockBrowser();
-    void gotoPoolBrowser();
-    void gotoRichList();
-    void gotoPoll();
     void gotoHistoryPage();
     void gotoAddressBookPage();
     void gotoReceiveCoinsPage();
@@ -250,9 +234,6 @@ class BitcoinGUI : public QMainWindow {
     void updateStakingIcon();
     void sConvert();
 
-    void openFacebook();
-    void openTwitter();
-    void openReddit();
 };
 
 #endif

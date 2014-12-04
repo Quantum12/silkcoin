@@ -25,9 +25,6 @@
 #include "overviewpage.h"
 #include "statisticspage.h"
 #include "blockbrowser.h"
-#include "poolbrowser.h"
-#include "richlist.h"
-#include "poll.h"
 #include "bitcoinunits.h"
 #include "guiconstants.h"
 #include "askpassphrasedialog.h"
@@ -118,9 +115,6 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
     statisticsPage = new StatisticsPage(this);
 
     blockBrowser = new BlockBrowser(this);
-    poolBrowser = new PoolBrowser(this);
-    richList = new RichList(this);
-    poll = new Poll(this);
 
     transactionsPage = new QWidget(this);
     QVBoxLayout *vbox = new QVBoxLayout();
@@ -212,9 +206,6 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
     centralWidget->addWidget(overviewPage);
     centralWidget->addWidget(statisticsPage);
     centralWidget->addWidget(blockBrowser);
-    centralWidget->addWidget(poolBrowser);
-    centralWidget->addWidget(richList);
-    centralWidget->addWidget(poll);
     centralWidget->addWidget(transactionsPage);
     centralWidget->addWidget(addressBookPage);
     centralWidget->addWidget(sendCoinsPage);
@@ -235,12 +226,6 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
     actionConvertCurrency = new QAction(QIcon(":/icons/sctask"), tr(""), this);
     actionConvertCurrency->setToolTip("Click here to convert your Silkcoin to USD and BTC.  Silkcoin price is pegged to BTC/SILK market and BTC/USD market on Coinbase.");
     actionLockUnlockWallet_Toolbar = new QAction(QIcon(":/icons/lock_closed"), tr(""), this);
-    actionHowToStake = new QAction(QIcon(":/icons/help"), tr(""), this);
-    actionHowToStake->setToolTip("If you need some help on how to start staking, click here for a short tutorial");
-
-    actionFacebook = new QAction(QIcon(":/icons/facebook"), tr("Like us on Facebook!"), this);
-    actionTwitter = new QAction(QIcon(":/icons/twitter"), tr("Follow us on Twitter!"), this);
-    actionReddit = new QAction(QIcon(":/icons/reddit"), tr("Check us out on Reddit!"), this);
 
     if (GetBoolArg("-staking", true)) {
         QTimer *timerStakingIcon = new QTimer(labelStakingIcon);
@@ -266,10 +251,6 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
     toolbar2->addWidget(labelStakingIcon);
     toolbar2->addWidget(labelConnectionsIcon);
     toolbar2->addWidget(lblBlockStatus);
-    toolbar2->addAction(actionTwitter);
-    toolbar2->addAction(actionFacebook);
-    toolbar2->addAction(actionReddit);
-    toolbar2->addAction(actionHowToStake);
     toolbar2->setStyleSheet("#toolbar2 QToolButton { border:none;padding:0px;margin:0px;height:20px;width:28px;margin-top:20px; }");
 
     gifSyncing = new QMovie(":/movies/spinner", "gif", this);
@@ -277,12 +258,7 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
 
     connect(actionConvertCurrency, SIGNAL(triggered()), this, SLOT(sConvert()));
 
-    connect(actionFacebook, SIGNAL(triggered()), this, SLOT(openFacebook()));
-    connect(actionTwitter, SIGNAL(triggered()), this, SLOT(openTwitter()));
-    connect(actionReddit, SIGNAL(triggered()), this, SLOT(openReddit()));
-
     connect(actionLockUnlockWallet_Toolbar, SIGNAL(triggered()), this, SLOT(lockUnlockWallet()));
-    connect(actionHowToStake, SIGNAL(triggered()), this, SLOT(tutoStackClicked()));
 
     // Clicking on a transaction on the overview page simply sends you to transaction history page
     connect(overviewPage, SIGNAL(transactionClicked(QModelIndex)), this, SLOT(gotoHistoryPage()));
@@ -342,21 +318,6 @@ void BitcoinGUI::createActions() {
     blockAction->setCheckable(true);
     tabGroup->addAction(blockAction);
 
-    poolAction = new QAction(QIcon(":/icons/ex"), tr("&Market Data"), this);
-    poolAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_7));
-    poolAction->setCheckable(true);
-    tabGroup->addAction(poolAction);
-
-    richListAction = new QAction(QIcon(":/icons/richlist"), tr("&Rich List"), this);
-    richListAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_R));
-    richListAction->setCheckable(true);
-    tabGroup->addAction(richListAction);
-
-    pollAction = new QAction(QIcon(":/icons/poll"), tr("&Polls"), this);
-    pollAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_V));
-    pollAction->setCheckable(true);
-    tabGroup->addAction(pollAction);
-
     settingsAction = new QAction(QIcon(":/icons/actions"), tr("&Actions"), this);
     settingsAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_7));
     settingsAction->setCheckable(true);
@@ -411,9 +372,6 @@ void BitcoinGUI::createActions() {
     wId2->hide();
 
     connect(blockAction, SIGNAL(triggered()), this, SLOT(gotoBlockBrowser()));
-    connect(poolAction, SIGNAL(triggered()), this, SLOT(gotoPoolBrowser()));
-    connect(richListAction, SIGNAL(triggered()), this, SLOT(gotoRichList()));
-    connect(pollAction, SIGNAL(triggered()), this, SLOT(gotoPoll()));
     connect(overviewAction, SIGNAL(triggered()), this, SLOT(showNormalIfMinimized()));
     connect(overviewAction, SIGNAL(triggered()), this, SLOT(gotoOverviewPage()));
     connect(statisticsAction, SIGNAL(triggered()), this, SLOT(gotoStatisticsPage()));
@@ -508,9 +466,6 @@ void BitcoinGUI::createToolBars() {
     toolbar->addAction(messageAction);
     toolbar->addAction(statisticsAction);
     toolbar->addAction(blockAction);
-    toolbar->addAction(poolAction);
-    toolbar->addAction(richListAction);
-    toolbar->addAction(pollAction);
     toolbar->addAction(settingsAction);
     toolbar->addAction(optionsAction);
     toolbar->addAction(exportAction);
@@ -596,9 +551,6 @@ void BitcoinGUI::setWalletModel(WalletModel *walletModel) {
 
         statisticsPage->setModel(clientModel);
         blockBrowser->setModel(clientModel);
-        poolBrowser->setModel(clientModel);
-        richList->setModel(clientModel);
-        poll->setModel(walletModel);
         setEncryptionStatus(walletModel->getEncryptionStatus());
         connect(walletModel, SIGNAL(encryptionStatusChanged(int)), this, SLOT(setEncryptionStatus(int)));
 
@@ -944,7 +896,7 @@ void BitcoinGUI::incomingTransaction(const QModelIndex& parent, int start, int e
                                    "Type: %3\n"
                                    "Address: %4\n")
                                 .arg(date)
-                                .arg(BitcoinUnits::formatWithUnit(walletModel->getOptionsModel()->getDisplayUnit(), _dScPriceLast * amount, true))
+                                .arg(BitcoinUnits::formatWithUnit(walletModel->getOptionsModel()->getDisplayUnit(), 1 * amount, true))
                                 .arg(type)
                                 .arg(address), icon);
 
@@ -959,7 +911,7 @@ void BitcoinGUI::incomingTransaction(const QModelIndex& parent, int start, int e
                                    "Type: %3\n"
                                    "Address: %4\n")
                                 .arg(date)
-                                .arg(BitcoinUnits::formatWithUnit(walletModel->getOptionsModel()->getDisplayUnit(), _dScPriceLast / _dBtcPriceCurrent * amount, true))
+                                .arg(BitcoinUnits::formatWithUnit(walletModel->getOptionsModel()->getDisplayUnit(), 1 / 1 * amount, true))
                                 .arg(type)
                                 .arg(address), icon);
         }
@@ -1019,60 +971,6 @@ void BitcoinGUI::gotoOverviewPage() {
     wId2->hide();
 }
 
-void BitcoinGUI::gotoPoolBrowser() {
-    poolAction->setChecked(true);
-    actionSendReceive->setChecked(false);
-
-    centralWidget->setCurrentWidget(poolBrowser);
-
-    exportAction->setEnabled(false);
-    actionConvertCurrency->setEnabled(true);
-    actionConvertCurrency->setVisible(true);
-    disconnect(actionConvertCurrency, SIGNAL(triggered()), 0, 0);
-    connect(actionConvertCurrency, SIGNAL(triggered()), this, SLOT(sConvert()));
-    exportAction->setVisible(false);
-
-    disconnect(exportAction, SIGNAL(triggered()), 0, 0);
-
-    wId->raise();
-    wId2->hide();
-}
-
-void BitcoinGUI::gotoRichList() {
-    richListAction->setChecked(true);
-    actionSendReceive->setChecked(false);
-
-    centralWidget->setCurrentWidget(richList);
-
-    exportAction->setEnabled(false);
-    actionConvertCurrency->setEnabled(false);
-    actionConvertCurrency->setVisible(true);
-    disconnect(actionConvertCurrency, SIGNAL(triggered()), 0, 0);
-
-    exportAction->setVisible(false);
-    disconnect(exportAction, SIGNAL(triggered()), 0, 0);
-
-    wId->raise();
-    wId2->hide();
-}
-
-void BitcoinGUI::gotoPoll() {
-    pollAction->setChecked(true);
-    actionSendReceive->setChecked(false);
-
-    centralWidget->setCurrentWidget(poll);
-
-    exportAction->setEnabled(false);
-    actionConvertCurrency->setEnabled(false);
-    actionConvertCurrency->setVisible(true);
-    disconnect(actionConvertCurrency, SIGNAL(triggered()), 0, 0);
-
-    exportAction->setVisible(false);
-    disconnect(exportAction, SIGNAL(triggered()), 0, 0);
-
-    wId->raise();
-    wId2->hide();
-}
 
 void BitcoinGUI::gotoBlockBrowser() {
     blockAction->setChecked(true);
@@ -1482,12 +1380,4 @@ void BitcoinGUI::updateStakingIcon() {
     }
 }
 
-void BitcoinGUI::openFacebook() {
-    QDesktopServices::openUrl(QUrl("https://www.facebook.com/pages/SilkCoin/734640973258763"));
-}
-void BitcoinGUI::openTwitter() {
-    QDesktopServices::openUrl(QUrl("https://twitter.com/silkcoinrevival"));
-}
-void BitcoinGUI::openReddit() {
-    QDesktopServices::openUrl(QUrl("http://www.reddit.com/r/Silk/"));
-}
+
