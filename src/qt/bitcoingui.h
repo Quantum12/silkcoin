@@ -232,7 +232,6 @@ class BitcoinGUI : public QMainWindow {
     void quitApplication();
 
     void updateStakingIcon();
-    void sConvert();
 
 };
 

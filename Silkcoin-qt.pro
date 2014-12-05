@@ -221,12 +221,10 @@ HEADERS += \
         src/qt/messagemodel.h \
         src/qt/messagepage.h \
         src/qt/monitoreddatamapper.h \
-        src/qt/nightcharts.h \
         src/qt/notificator.h \
         src/qt/optionsdialog.h \
         src/qt/optionsmodel.h \
         src/qt/overviewpage.h \
-        src/qt/qcustomplot.h \
         src/qt/qtipcserver.h \
         src/qt/qvalidatedlineedit.h \
         src/qt/qvalidatedtextedit.h \
@@ -304,12 +302,10 @@ SOURCES += \
         src/qt/messagemodel.cpp \
         src/qt/messagepage.cpp \
         src/qt/monitoreddatamapper.cpp \
-        src/qt/nightcharts.cpp \
         src/qt/notificator.cpp \
         src/qt/optionsdialog.cpp \
         src/qt/optionsmodel.cpp \
         src/qt/overviewpage.cpp \
-        src/qt/qcustomplot.cpp \
         src/qt/qtipcserver.cpp \
         src/qt/qvalidatedlineedit.cpp \
         src/qt/qvalidatedtextedit.cpp \

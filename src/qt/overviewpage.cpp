@@ -66,17 +66,7 @@ class TxViewDelegate : public QAbstractItemDelegate {
         painter->setPen(foreground);
         QString amountText = "";
 
-        if (convertmode == 0) {
-            amountText = BitcoinUnits::formatWithUnit(unit, amount, true);
-        }
-
-        if (convertmode == 1) {
-            amountText = BitcoinUnits::formatWithUnit(unit, (1 * amount), true);
-        }
-
-        if (convertmode == 2) {
-            amountText = BitcoinUnits::formatWithUnit(unit, (1 / 1 * amount), true);
-        }
+        amountText = BitcoinUnits::formatWithUnit(unit, amount, true);
 
         if (!confirmed) {
             amountText = QString("[") + amountText + QString("]");
@@ -145,24 +135,10 @@ void OverviewPage::setBalance(qint64 balance, qint64 stake, qint64 unconfirmedBa
     currentUnconfirmedBalance = unconfirmedBalance;
     currentImmatureBalance = immatureBalance;
 
-    if (convertmode == 0) {
         ui->lblBalanceSlot0->setText(BitcoinUnits::formatWithUnit(unit, balance));
         ui->lblBalanceSlot1->setText(BitcoinUnits::formatWithUnit(unit, stake));
         ui->lblDetailsSlot0->setText(BitcoinUnits::formatWithUnit(unit, unconfirmedBalance));
         ui->lblBalanceSlot3->setText(BitcoinUnits::formatWithUnit(unit, balance + stake + unconfirmedBalance + immatureBalance));
-
-    } else if (convertmode == 1) {
-        ui->lblBalanceSlot0->setText(BitcoinUnits::formatWithUnit(unit, (1 * balance)));
-        ui->lblBalanceSlot1->setText(BitcoinUnits::formatWithUnit(unit, (1 * stake)));
-        ui->lblDetailsSlot0->setText(BitcoinUnits::formatWithUnit(unit, (1 * unconfirmedBalance)));
-        ui->lblBalanceSlot3->setText(BitcoinUnits::formatWithUnit(unit, (1 * (balance + stake + unconfirmedBalance + immatureBalance))));
-
-    } else if (convertmode == 2) {
-        ui->lblBalanceSlot0->setText(BitcoinUnits::formatWithUnit(unit, (1 / 1 * balance)));
-        ui->lblBalanceSlot1->setText(BitcoinUnits::formatWithUnit(unit, (1 / 1 * stake)));
-        ui->lblDetailsSlot0->setText(BitcoinUnits::formatWithUnit(unit, (1 / 1 * unconfirmedBalance)));
-        ui->lblBalanceSlot3->setText(BitcoinUnits::formatWithUnit(unit, (1 / 1 * (balance + stake + unconfirmedBalance + immatureBalance))));
-    }
 }
 
 void OverviewPage::setNumTransactions(int count) {

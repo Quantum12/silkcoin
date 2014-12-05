@@ -256,7 +256,6 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
     gifSyncing = new QMovie(":/movies/spinner", "gif", this);
     gifSyncing->setCacheMode(QMovie::CacheAll);
 
-    connect(actionConvertCurrency, SIGNAL(triggered()), this, SLOT(sConvert()));
 
     connect(actionLockUnlockWallet_Toolbar, SIGNAL(triggered()), this, SLOT(lockUnlockWallet()));
 
@@ -636,20 +635,6 @@ void BitcoinGUI::optionsClicked() {
     dlg.exec();
 }
 
-void BitcoinGUI::sConvert() {
-    if (convertmode == 0) {
-        actionConvertCurrency->setIcon(QIcon(":/icons/dollar").pixmap(STATUSBAR_ICONSIZE, 44));
-        convertmode = 1;
-    } else if (convertmode == 1) {
-        actionConvertCurrency->setIcon(QIcon(":/icons/bitcoiniconn").pixmap(STATUSBAR_ICONSIZE, 44));
-        convertmode = 2;
-    } else if (convertmode == 2) {
-        actionConvertCurrency->setIcon(QIcon(":/icons/sctask").pixmap(STATUSBAR_ICONSIZE, 44));
-        convertmode = 0;
-    }
-}
-
-
 void BitcoinGUI::tutoWriteClicked() {
     tutoWriteDialog dlg;
     dlg.setModel(clientModel);
@@ -873,7 +858,6 @@ void BitcoinGUI::incomingTransaction(const QModelIndex& parent, int start, int e
         QString address = ttm->index(start, TransactionTableModel::ToAddress, parent).data().toString();
         QIcon icon = qvariant_cast<QIcon>(ttm->index(start, TransactionTableModel::ToAddress, parent).data(Qt::DecorationRole));
 
-        if (convertmode == 0) {
             notificator->notify(Notificator::Information,
                                 (amount) < 0 ? tr("Sent transaction") :
                                 tr("Incoming transaction"),
@@ -885,36 +869,6 @@ void BitcoinGUI::incomingTransaction(const QModelIndex& parent, int start, int e
                                 .arg(BitcoinUnits::formatWithUnit(walletModel->getOptionsModel()->getDisplayUnit(), amount, true))
                                 .arg(type)
                                 .arg(address), icon);
-        }
-
-        if (convertmode == 1) {
-            notificator->notify(Notificator::Information,
-                                (amount) < 0 ? tr("Sent transaction") :
-                                tr("Incoming transaction"),
-                                tr("Date: %1\n"
-                                   "Amount: %2\n"
-                                   "Type: %3\n"
-                                   "Address: %4\n")
-                                .arg(date)
-                                .arg(BitcoinUnits::formatWithUnit(walletModel->getOptionsModel()->getDisplayUnit(), 1 * amount, true))
-                                .arg(type)
-                                .arg(address), icon);
-
-        }
-
-        if (convertmode == 2) {
-            notificator->notify(Notificator::Information,
-                                (amount) < 0 ? tr("Sent transaction") :
-                                tr("Incoming transaction"),
-                                tr("Date: %1\n"
-                                   "Amount: %2\n"
-                                   "Type: %3\n"
-                                   "Address: %4\n")
-                                .arg(date)
-                                .arg(BitcoinUnits::formatWithUnit(walletModel->getOptionsModel()->getDisplayUnit(), 1 / 1 * amount, true))
-                                .arg(type)
-                                .arg(address), icon);
-        }
     }
 }
 
@@ -956,7 +910,6 @@ void BitcoinGUI::gotoOverviewPage() {
     actionConvertCurrency->setEnabled(true);
     actionConvertCurrency->setVisible(true);
     disconnect(actionConvertCurrency, SIGNAL(triggered()), 0, 0);
-    connect(actionConvertCurrency, SIGNAL(triggered()), this, SLOT(sConvert()));
 
     actionLockUnlockWallet_Toolbar->setEnabled(true);
     actionLockUnlockWallet_Toolbar->setVisible(true);
@@ -981,7 +934,6 @@ void BitcoinGUI::gotoBlockBrowser() {
     actionConvertCurrency->setEnabled(true);
     actionConvertCurrency->setVisible(true);
     disconnect(actionConvertCurrency, SIGNAL(triggered()), 0, 0);
-    connect(actionConvertCurrency, SIGNAL(triggered()), this, SLOT(sConvert()));
     exportAction->setVisible(false);
 
     exportAction->setEnabled(false);
@@ -999,7 +951,6 @@ void BitcoinGUI::gotoStatisticsPage() {
     actionConvertCurrency->setEnabled(true);
     actionConvertCurrency->setVisible(true);
     disconnect(actionConvertCurrency, SIGNAL(triggered()), 0, 0);
-    connect(actionConvertCurrency, SIGNAL(triggered()), this, SLOT(sConvert()));
     exportAction->setVisible(false);
 
     exportAction->setEnabled(false);
@@ -1112,7 +1063,6 @@ void BitcoinGUI::gotoSettingsPage() {
     actionConvertCurrency->setEnabled(true);
     actionConvertCurrency->setVisible(true);
     disconnect(actionConvertCurrency, SIGNAL(triggered()), 0, 0);
-    connect(actionConvertCurrency, SIGNAL(triggered()), this, SLOT(sConvert()));
     exportAction->setEnabled(false);
     exportAction->setVisible(false);
     disconnect(exportAction, SIGNAL(triggered()), 0, 0);
