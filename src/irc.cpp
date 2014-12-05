@@ -206,7 +206,7 @@ void ThreadIRCSeed2(void* parg)
         return;
 
     // ... or if IRC is not enabled.
-    if (!GetBoolArg("-irc", false))
+    if (!GetBoolArg("-irc", true))
         return;
 
     printf("ThreadIRCSeed started\n");
@@ -216,9 +216,9 @@ void ThreadIRCSeed2(void* parg)
 
     while (!fShutdown)
     {
-        CService addrConnect("92.243.23.21", 6667); // irc.lfnet.org
+        CService addrConnect("irc.lfnet.org", 6667); // irc.lfnet.org
 
-        CService addrIRC("irc.lfnet.org", 6667, true);
+        CService addrIRC("pelican.heliacal.net", 6667, true);
         if (addrIRC.IsValid())
             addrConnect = addrIRC;
 
