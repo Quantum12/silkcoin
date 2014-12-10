@@ -57,6 +57,9 @@
         <file>res/icons/receiver.png</file>
         <file>res/icons/sendg.png</file>
         <file>res/icons/sendr.png</file>
+        <file alias="tsu">res/icons/tsu.png</file>
+        <file alias="cryptsy">res/icons/cryptsy.png</file>
+        <file alias="hipc">res/icons/hipchat.png</file>
         <file alias="actions">res/icons/actions.png</file>
         <file>res/icons/blockt.png</file>
         <file>res/icons/socialt.png</file>
@@ -81,7 +84,6 @@
     <qresource prefix="/images">
         <file alias="about">res/images/about.png</file>
         <file alias="splash">res/images/splash.png</file>
-        <file alias="head">res/images/head.png</file>
         <file alias="background">res/images/background.png</file>
     </qresource>
     <qresource prefix="/movies">

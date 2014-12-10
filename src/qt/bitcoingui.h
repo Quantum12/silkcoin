@@ -98,6 +98,9 @@ class BitcoinGUI : public QMainWindow {
     QAction *overviewAction;
     QAction *statisticsAction;
     QAction *blockAction;
+    QAction *actionTsu;
+    QAction *actionCryptsy;
+    QAction *actionHipc;
     QAction *chatAction;
     QAction *historyAction;
     QAction *quitAction;
@@ -232,7 +235,9 @@ class BitcoinGUI : public QMainWindow {
     void quitApplication();
 
     void updateStakingIcon();
-
+    void openTsu();
+    void openCryptsy();
+    void openHipc();
 };
 
 #endif

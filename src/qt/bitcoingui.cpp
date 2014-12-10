@@ -90,7 +90,7 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
     QFontDatabase::addApplicationFont(":/fonts/pxbold");
     QFontDatabase::addApplicationFont(":/fonts/mohave");
     setWindowTitle(tr("Silkcoin") + " " + tr("Wallet"));
-    qApp->setStyleSheet("QMainWindow { background:rgb(237, 241, 247); font-family:'Proxima Nova Rg'; } #toolbar2 { border:none;width:30px; background:rgb(52, 56, 65); }");
+    qApp->setStyleSheet("QMainWindow { background:rgb(237, 241, 247); font-family:'Proxima Nova Rg'; } #toolbar2 { border:none;width:30px; background:rgb(137,134,161); }");
 #ifndef Q_OS_MAC
     qApp->setWindowIcon(QIcon(":icons/bitcoin"));
     setWindowIcon(QIcon(":icons/bitcoin"));
@@ -227,6 +227,11 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
     actionConvertCurrency->setToolTip("Click here to convert your Silkcoin to USD and BTC.  Silkcoin price is pegged to BTC/SILK market and BTC/USD market on Coinbase.");
     actionLockUnlockWallet_Toolbar = new QAction(QIcon(":/icons/lock_closed"), tr(""), this);
 
+    actionTsu = new QAction(QIcon(":/icons/tsu"), tr("Follow us on Tsu - and get Paid!"), this);
+    actionCryptsy = new QAction(QIcon(":/icons/cryptsy"), tr("Buy and Sell SILK"), this);
+    actionHipc = new QAction(QIcon(":/icons/hipc"), tr("Join us on HipChat"), this);
+
+	
     if (GetBoolArg("-staking", true)) {
         QTimer *timerStakingIcon = new QTimer(labelStakingIcon);
         connect(timerStakingIcon, SIGNAL(timeout()), this, SLOT(updateStakingIcon()));
@@ -246,9 +251,11 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
     toolbar2->setObjectName("toolbar2");
     toolbar2->setFixedWidth(30);
     toolbar2->setIconSize(QSize(28, 28));
-    toolbar2->addAction(actionConvertCurrency);
     toolbar2->addAction(actionLockUnlockWallet_Toolbar);
     toolbar2->addWidget(labelStakingIcon);
+    toolbar2->addAction(actionTsu);
+    toolbar2->addAction(actionCryptsy);
+    toolbar2->addAction(actionHipc);
     toolbar2->addWidget(labelConnectionsIcon);
     toolbar2->addWidget(lblBlockStatus);
     toolbar2->setStyleSheet("#toolbar2 QToolButton { border:none;padding:0px;margin:0px;height:20px;width:28px;margin-top:20px; }");
@@ -256,6 +263,9 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
     gifSyncing = new QMovie(":/movies/spinner", "gif", this);
     gifSyncing->setCacheMode(QMovie::CacheAll);
 
+    connect(actionTsu, SIGNAL(triggered()), this, SLOT(openTsu()));
+    connect(actionCryptsy, SIGNAL(triggered()), this, SLOT(openCryptsy()));
+    connect(actionHipc, SIGNAL(triggered()), this, SLOT(openHipc()));
 
     connect(actionLockUnlockWallet_Toolbar, SIGNAL(triggered()), this, SLOT(lockUnlockWallet()));
 
@@ -447,7 +457,6 @@ void BitcoinGUI::createActions() {
 
 void BitcoinGUI::createToolBars() {
     QLabel *mylabel = new QLabel(this);
-    mylabel->setPixmap(QPixmap(":images/head"));
     mylabel->show();
 
     QToolBar *toolbar = addToolBar(tr("Menu"));
@@ -472,7 +481,7 @@ void BitcoinGUI::createToolBars() {
     spacer->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     toolbar->addWidget(spacer);
     spacer->setObjectName("spacer");
-    toolbar->setStyleSheet("#toolbar { font-weight:600;border:none;height:100%;padding-top:20px; background: rgb(37, 40, 46); text-align: left; color: white;min-width:180px;max-width:180px;} QToolBar QToolButton:hover {background:rgb(28, 29, 33);} QToolBar QToolButton:checked {background:rgba(28, 29, 33, 100);}  QToolBar QToolButton { font-weight:600;font-size:10px;font-family:'Century Gothic';padding-left:20px;padding-right:181px;padding-top:4px;padding-bottom:4px; width:100%; color: white; text-align: left; background:transparent;text-transform:uppercase; }");
+    toolbar->setStyleSheet("#toolbar { font-weight:600;border:none;height:100%;padding-top:20px; background: rgb(0, 0, 0); text-align: left; color: white;min-width:180px;max-width:180px;} QToolBar QToolButton:hover {background:rgb(28, 29, 33);} QToolBar QToolButton:checked {background:rgba(28, 29, 33, 100);}  QToolBar QToolButton { font-weight:600;font-size:10px;font-family:'Century Gothic';padding-left:20px;padding-right:181px;padding-top:4px;padding-bottom:4px; width:100%; color: white; text-align: left; background:transparent;text-transform:uppercase; }");
 
     wId = new QWidget(this);
 
@@ -1330,4 +1339,14 @@ void BitcoinGUI::updateStakingIcon() {
     }
 }
 
+void BitcoinGUI::openTsu() {
+    QDesktopServices::openUrl(QUrl("https://www.tsu.co/Silkcoin"));
+}
 
+void BitcoinGUI::openCryptsy() {
+    QDesktopServices::openUrl(QUrl("https://www.cryptsy.com/users/register?refid=8564"));
+}
+
+void BitcoinGUI::openHipc() {
+    QDesktopServices::openUrl(QUrl("https://www.hipchat.com/invite/168485/cfd0e56c0e7ca55a03fd3ab2d872467c"));
+}
