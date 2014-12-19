@@ -1,3 +1,4 @@
+
 #ifndef GUICONSTANTS_H
 #define GUICONSTANTS_H
 
@@ -14,9 +15,9 @@ static const int STATUSBAR_ICONSIZE = 28;
 #define STYLE_INVALID "background:#FF8080"
 
 /* Transaction list -- unconfirmed transaction */
-#define COLOR_UNCONFIRMED QColor(0, 0, 0)
+#define COLOR_UNCONFIRMED QColor(125, 53, 24)
 /* Transaction list -- negative amount */
-#define COLOR_NEGATIVE QColor(0, 0, 0)
+#define COLOR_NEGATIVE QColor(69, 90, 140)
 /* Transaction list -- bare address (without label) */
 #define COLOR_BAREADDRESS QColor(255, 255, 255)
 

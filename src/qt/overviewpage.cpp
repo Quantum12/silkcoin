@@ -190,7 +190,7 @@ void OverviewPage::updateDisplayUnit() {
 
 void OverviewPage::showOutOfSyncWarning(bool fShow) {
     if (fShow == true) {
-        ui->lblDetailsSlot3->setText("<font color=\"black\">Out of sync</font>");
+        ui->lblDetailsSlot3->setText("<font color=\"blue\">Out of sync</font>");
     }
 
     if (fShow == false) { //
