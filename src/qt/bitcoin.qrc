@@ -160,10 +160,7 @@
     </qresource>
     <qresource prefix="/fonts">
         <file alias="mohave">res/fonts/Mohave-SemiBold.otf</file>
-        <file alias="pbold">res/fonts/ProximaNova-Bold.otf</file>
         <file alias="pxbold">res/fonts/ProximaNova-Extrabold.otf</file>
         <file alias="preg">res/fonts/ProximaNova-Regular.otf</file>
-        <file alias="canter">res/fonts/CanterBold.otf</file>
-        <file alias="canterl">res/fonts/CanterLight.otf</file>
     </qresource>
 </RCC>
